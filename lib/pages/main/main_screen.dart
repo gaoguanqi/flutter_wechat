@@ -103,6 +103,7 @@ class _MainScreenState extends State<MainScreen> {
           return _pages[index];
         },
         controller: _pageController,
+        physics: NeverScrollableScrollPhysics(),
         onPageChanged: (int index) {
           setState(() {
             _currentIndex = index;
