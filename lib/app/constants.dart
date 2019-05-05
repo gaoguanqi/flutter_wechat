@@ -13,6 +13,7 @@ class AppStyles{
   static const TitleStyle = TextStyle(
     fontSize: AppDimens.TitleTextSize,
     color: const Color(AppColors.TitleColor),
+    fontWeight:FontWeight.w600,
   );
 }
 
@@ -22,7 +23,7 @@ class AppStrings{
 
 class AppDimens{
   static const ActionIconSize = 18.0;
-  static const TitleTextSize = 16.0;
+  static const TitleTextSize = 18.0;
 }
 
 class Constants{
