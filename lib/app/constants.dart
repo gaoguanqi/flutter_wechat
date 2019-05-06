@@ -15,6 +15,11 @@ class AppStyles{
     color: const Color(AppColors.TitleColor),
     fontWeight:FontWeight.w600,
   );
+
+  static const MenuStyle = TextStyle(
+    fontSize: AppDimens.MenuTextSize,
+    color: Colors.black,
+  );
 }
 
 class AppStrings{
@@ -22,8 +27,12 @@ class AppStrings{
 }
 
 class AppDimens{
+  /// The height of the toolbar component of the [AppBar].
+  static const double kToolbarHeight = 56.0;
+
   static const ActionIconSize = 18.0;
   static const TitleTextSize = 18.0;
+  static const MenuTextSize = 16.0;
 }
 
 class Constants{
