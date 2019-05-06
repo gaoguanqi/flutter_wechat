@@ -9,7 +9,7 @@ class Strings{
 
 
   static const TitleHome = '微信';
-  static const TitleFriend = '朋友';
+  static const TitleFriend = '通讯录';
   static const TitleFind = '发现';
   static const TitleMe = '我';
 
