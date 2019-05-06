@@ -6,6 +6,7 @@ class Strings{
   static const MenuQRScan = '扫一扫';
   static const MenuPayments = '收付款';
   static const MenuHelp = '帮助与反馈';
+  static const TextSearch = '搜索';
 
 
   static const TitleHome = '微信';

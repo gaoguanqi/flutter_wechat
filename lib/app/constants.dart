@@ -33,6 +33,7 @@ class AppDimens{
   static const ActionIconSize = 18.0;
   static const TitleTextSize = 18.0;
   static const MenuTextSize = 16.0;
+  static const SearchTextSize = 12.0;
 }
 
 class Constants{

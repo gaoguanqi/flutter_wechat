@@ -8,7 +8,7 @@ import 'dart:ui';
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<HomeData> data = [];
+    List<HomeData> data = HomePageData.mock().list;
     return Scaffold(
         appBar: AppBar(
           elevation: 0.2,
@@ -28,7 +28,7 @@ class HomePage extends StatelessWidget {
         body: Container(
           alignment: Alignment.center,
           // child: _homeListView(context,data),
-          child: Text('home'),
+          child: _homeListView(context,data),
         ));
   }
 
@@ -96,11 +96,62 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _homeListView(BuildContext context, List<HomeData> list) {
-    return ListView.separated(
-        itemCount: list.length,
-        separatorBuilder: (context, index) {
-          if (index == 1) {
-          } else {}
-        });
+    return ListView.builder(
+      scrollDirection: Axis.vertical, //设置滑动方向 Axis.horizontal 水平  默认 Axis.vertical 垂直
+      padding: EdgeInsets.all(10.0),//内间距
+      reverse: false,//是否倒序显示 默认正序 false  倒序true
+      primary: true,//false，如果内容不足，则用户无法滚动 而如果[primary]为true，它们总是可以尝试滚动。
+      //itemExtent: 30.0,//确定每一个item的高度 会让item加载更加高效
+      shrinkWrap: false, //内容适配
+      itemCount: list.length,//item 数量
+      physics: new ClampingScrollPhysics(), //滑动类型设置
+      cacheExtent: 30.0,//cacheExtent  设置预加载的区域
+      //滑动监听
+      //controller ,
+      itemBuilder: (context,index){
+       if(index == 0){
+         return _SearchItem();
+       }else{
+         return _ContentItem();
+       }
+      },
+    );
+  }
+}
+
+class _ContentItem extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Text('home'),
+    );
+
+
+  }
+
+}
+
+class _SearchItem extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 40.0,
+      alignment:Alignment.center,
+      child: RaisedButton(
+        elevation: 0.2,
+        onPressed: (){
+
+        },
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
+        color: Colors.white,
+        child: Row(
+          children: <Widget>[
+            Icon(Icons.search, size: 18.0, color: Colors.grey),
+            Container(width: 6.0),
+            Text(Strings.TextSearch,style: TextStyle(fontSize: 16.0,color: Colors.grey),),
+          ],
+        ),
+      ),
+    );
   }
 }
