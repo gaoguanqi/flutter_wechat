@@ -4,6 +4,7 @@ import 'package:flutter_wechat/app/constants.dart';
 import 'package:flutter_wechat/utils/utils.dart';
 import 'package:flutter_wechat/pages/home/home_data.dart';
 import 'dart:ui';
+import 'package:flutter_wechat/pages/home/search_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -14,16 +15,19 @@ class HomePage extends StatelessWidget {
           elevation: 0.2,
           title: Text(Strings.TitleHome, style: AppStyles.TitleStyle),
           centerTitle: true,
-          actions: <Widget>[
-            IconButton(
-              icon: Image.asset('assets/images/ic_home_add.png',
-                  width: AppDimens.ActionIconSize,
-                  height: AppDimens.ActionIconSize),
-              onPressed: () {
-                _showHomeMenu(context);
-              },
-            )
-          ],
+          /// menu 1
+//          actions: <Widget>[
+//            IconButton(
+//              icon: Image.asset('assets/images/ic_home_add.png',
+//                  width: AppDimens.ActionIconSize,
+//                  height: AppDimens.ActionIconSize),
+//              onPressed: () {
+//                _showHomeMenu(context);
+//              },
+//            )
+//          ],
+        ///menu 2
+        actions: _menuActions(context),
         ),
         body: Container(
           alignment: Alignment.center,
@@ -32,6 +36,7 @@ class HomePage extends StatelessWidget {
         ));
   }
 
+  ///menu 1
   _showHomeMenu(BuildContext context) {
     final RenderBox overlay = Overlay.of(context).context.findRenderObject();
     //RelativeRect.fromLTRB(left, top, right, bottom)
@@ -119,16 +124,91 @@ class HomePage extends StatelessWidget {
   }
 }
 
+/// menu 2  PopupMenuButton 方式不能设置位置，
+_menuActions(BuildContext context) {
+  return [
+    Theme(
+      data: ThemeData(
+          cardColor: Color(AppColors.ActionMenuBgColor)
+      ),
+      child: PopupMenuButton(
+        itemBuilder: (BuildContext context) {
+          return <PopupMenuEntry<ActionItems>>[
+            PopupMenuItem(
+              child: _buildPopupMenuItem(0xe69e, Strings.MenuGroupChat),
+              value: ActionItems.GROUP_CHAT,
+            ),
+            PopupMenuDivider(height: 0.5),
+            PopupMenuItem(
+              child: _buildPopupMenuItem(0xe638, Strings.MenuAddFriends),
+              value: ActionItems.ADD_FRIEND,
+            ),
+            PopupMenuDivider(height: 0.5),
+            PopupMenuItem(
+              child: _buildPopupMenuItem(0xe61b, Strings.MenuQRScan),
+              value: ActionItems.QR_SCAN,
+            ),
+            PopupMenuDivider(height: 0.5),
+            PopupMenuItem(
+              child: _buildPopupMenuItem(0xe62a, Strings.MenuPayments),
+              value: ActionItems.PAYMENT,
+            ),
+            PopupMenuDivider(height: 0.5),
+          ];
+        },
+        icon: Icon(
+            IconData(
+              0xe60e,
+              fontFamily: Constants.IconFontFamily,
+            ),
+            size: 20.0,
+            color: const Color(AppColors.ActionIconColor)
+        ),
+        onSelected: (ActionItems selected) {
+          switch(selected.index){
+            case 0:
+              ToastUtils.showToast(Strings.MenuGroupChat);
+              break;
+            case 1:
+              ToastUtils.showToast(Strings.MenuAddFriends);
+              break;
+            case 2:
+              ToastUtils.showToast(Strings.MenuQRScan);
+              break;
+            case 3:
+              ToastUtils.showToast(Strings.MenuPayments);
+              break;
+          }
+        },
+      ),
+    ),
+    Container(width: 16.0),
+  ];
+}
+
+_buildPopupMenuItem(int icon, String title) {
+  /////Center继承自Align，只不过是将alignment设置为Alignment.center,Align默认的对齐方式就是居中。
+  return Center(
+   child: Row(
+     children: <Widget>[
+       Icon(IconData(
+         icon,
+         fontFamily: Constants.IconFontFamily,
+       ), size: 18.0, color: const Color(AppColors.AppBarPopupMenuColor)),
+       Container(width: 6.0),
+       Text(title, style: TextStyle(fontSize: 14.0,color: const Color(AppColors.AppBarPopupMenuColor))),
+     ],
+   ),
+  );
+}
+
 class _ContentItem extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     return Material(
       child: Text('home'),
     );
-
-
   }
-
 }
 
 class _SearchItem extends StatelessWidget{
@@ -140,18 +220,27 @@ class _SearchItem extends StatelessWidget{
       child: RaisedButton(
         elevation: 0.2,
         onPressed: (){
-
+          _jumpToSearchPage(context);
         },
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
         color: Colors.white,
-        child: Row(
-          children: <Widget>[
-            Icon(Icons.search, size: 18.0, color: Colors.grey),
-            Container(width: 6.0),
-            Text(Strings.TextSearch,style: TextStyle(fontSize: 16.0,color: Colors.grey),),
-          ],
-        ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center, //主轴方向的对齐方式，会对child的位置起作用，默认start。
+            children: <Widget>[
+              Icon(Icons.search, size: 18.0, color: Colors.grey),
+              Container(width: 6.0),
+              Text(Strings.TextSearch,style: TextStyle(fontSize: 16.0,color: Colors.grey),),
+            ],
+        )
       ),
     );
   }
+}
+
+ _jumpToSearchPage(BuildContext context) {
+   Navigator.push(context,MaterialPageRoute(builder: (context) => SearchPage()));
+}
+
+enum ActionItems {
+  GROUP_CHAT, ADD_FRIEND, QR_SCAN, PAYMENT
 }

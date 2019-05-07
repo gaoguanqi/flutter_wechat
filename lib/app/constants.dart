@@ -7,6 +7,11 @@ class AppColors{
   static const TabIconNormal = 0xff999999;
   static const TabIconActive = 0xff46c11b;
 
+  static const ActionIconColor = 0xff000000;
+  static const ActionMenuBgColor = 0xff4c4c4c;
+  static const CardBgColor = 0xffffffff;
+  static const AppBarPopupMenuColor = 0xffffffff;
+
 }
 
 class AppStyles{
