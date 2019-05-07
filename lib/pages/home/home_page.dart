@@ -4,7 +4,7 @@ import 'package:flutter_wechat/app/constants.dart';
 import 'package:flutter_wechat/utils/utils.dart';
 import 'package:flutter_wechat/pages/home/home_data.dart';
 import 'dart:ui';
-import 'package:flutter_wechat/pages/home/search_page.dart';
+import 'package:flutter_wechat/pages/search/search_page.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -111,9 +111,10 @@ class HomePage extends StatelessWidget {
 
   Widget _homeListView(BuildContext context, List<HomeData> list) {
     return ListView.builder(
+
       scrollDirection: Axis.vertical,
       //设置滑动方向 Axis.horizontal 水平  默认 Axis.vertical 垂直
-      padding: EdgeInsets.all(10.0),
+      padding: EdgeInsets.only(top: 10.0),
       //内间距
       reverse: false,
       //是否倒序显示 默认正序 false  倒序true
@@ -122,7 +123,7 @@ class HomePage extends StatelessWidget {
       //itemExtent: 30.0,//确定每一个item的高度 会让item加载更加高效
       shrinkWrap: false,
       //内容适配
-      itemCount: list.length,
+      itemCount: list.length + 2,
       //item 数量
       physics: new ClampingScrollPhysics(),
       //滑动类型设置
@@ -133,13 +134,16 @@ class HomePage extends StatelessWidget {
       itemBuilder: (context, index) {
         if (index == 0) {
           return _SearchItem();
+        }else if(index ==1){
+          return _DevicesItem();
         } else {
-          return _ContentItem();
+          return _ContentItem(index - 2,list);
         }
       },
     );
   }
 }
+
 
 /// menu 2  PopupMenuButton 方式不能设置位置，
 _menuActions(BuildContext context) {
@@ -220,25 +224,16 @@ _buildPopupMenuItem(int icon, String title) {
   );
 }
 
-class _ContentItem extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Material(
-      child: Text('home'),
-    );
-  }
-}
-
 class _SearchItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+        padding: EdgeInsets.only(left: 10.0,right: 10.0),
         height: 46.0,
         alignment: Alignment.center,
         child: Padding(
             padding: EdgeInsets.only(bottom: 8.0),
-            child: RaisedButton(
-                elevation: 0.2,
+            child: FlatButton(
                 onPressed: () {
                   _jumpToSearchPage(context);
                 },
@@ -251,6 +246,7 @@ class _SearchItem extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8.0)
                 ),
                 color: Colors.white,
+                highlightColor: Colors.black12,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   //主轴方向的对齐方式，会对child的位置起作用，默认start。
@@ -271,6 +267,94 @@ _jumpToSearchPage(BuildContext context) {
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => SearchPage()));
 }
+
+class _DevicesItem extends StatelessWidget{
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.only(left: 10.0,right: 10.0),
+        child: Center(
+          child: Column(
+            children: <Widget>[
+              Container(height: 8.0),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset('assets/images/ic_devices.png',width: 24.0,height: 24.0),
+                  Container(width: 8.0),
+                  Text(Strings.TextDevices)
+                ],
+              ),
+              Container(height: 8.0),
+              Divider(
+                height: 0.2
+              )
+            ],
+          ),
+        ),
+    );
+  }
+}
+
+class _ContentItem extends StatelessWidget {
+  int _index;
+  List<HomeData> _list;
+  _ContentItem(this._index,this._list);
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      child: Container(
+        height: 80.0,
+        color: Colors.white,
+        child: Container(
+          padding: EdgeInsets.only(left: 10.0,right: 10.0),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Image.network(_list[_index].avatar,width: 60.0,height: 60.0),
+              Container(width: 12.0),
+              Expanded(
+                child: Container(
+                  padding: const EdgeInsets.only(right: 18.0,
+                      top: 12.0, bottom: 12.0),
+                  decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(width: 0.6, color: Color(AppColors.DividerColor)),
+                      )
+                  ),
+                  child: Row(
+                    children: <Widget>[
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(_list[_index].title, style: AppStyles.TitleStyle),
+                            SizedBox(height: 2.0),
+                            Text(_list[_index].des, style: AppStyles.DesStyle, maxLines: 1)
+                          ],
+                        ),
+                      ),
+                      Container(width: 10.0),
+                      Column(
+                        children: <Widget>[
+                          Text(_list[_index].time),
+                          Icon(Icons.access_time)
+                        ],
+                      ),
+                    ],
+                  )
+                ),
+              )
+            ],
+          ),
+        )
+      ),
+    );
+  }
+}
+
+
+
 
 enum ActionItems {
   GROUP_CHAT,

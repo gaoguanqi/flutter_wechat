@@ -15,6 +15,11 @@ class Strings{
   static const TitleMe = '我';
 
 
+  static const TextDevices = 'Windows 微信已登录，手机通知已关闭';
+
+
+
+
 
 
 }

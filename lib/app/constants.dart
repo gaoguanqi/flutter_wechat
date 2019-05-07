@@ -12,6 +12,9 @@ class AppColors{
   static const CardBgColor = 0xffffffff;
   static const AppBarPopupMenuColor = 0xffffffff;
 
+  static const DividerColor = 0xffd5d5d5;
+  static const DesTextColor = 0xff999999;
+
 }
 
 class AppStyles{
@@ -24,6 +27,11 @@ class AppStyles{
   static const MenuStyle = TextStyle(
     fontSize: AppDimens.MenuTextSize,
     color: Colors.black,
+  );
+
+  static const DesStyle = TextStyle(
+    fontSize: 12.0,
+    color: Color(AppColors.DesTextColor),
   );
 }
 
