@@ -362,17 +362,29 @@ class _ContentItem extends StatelessWidget {
           ),
         );
       }else{
-        unreadMessageCountText = Container(
-          width: UN_READ_MSG_CIRCLE_SIZE,
-          height: UN_READ_MSG_CIRCLE_SIZE,
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(UN_READ_MSG_CIRCLE_SIZE / 2.0),
-            color: Color(AppColors.NotifyDotBg),
-          ),
-          child: Text(_itemData.unreadMessageCount.toString(),
-              style: AppStyles.NotifyDotStyle),
-        );
+        if(_itemData.isGroup){
+          unreadMessageCountText = Container(
+            width: 10.0,
+            height: 10.0,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(5.0),
+              color: Color(AppColors.NotifyDotBg),
+            ),
+          );
+        }else{
+          unreadMessageCountText = Container(
+            width: UN_READ_MSG_CIRCLE_SIZE,
+            height: UN_READ_MSG_CIRCLE_SIZE,
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(UN_READ_MSG_CIRCLE_SIZE / 2.0),
+              color: Color(AppColors.NotifyDotBg),
+            ),
+            child: Text(_itemData.unreadMessageCount.toString(),
+                style: AppStyles.NotifyDotStyle),
+          );
+        }
       }
       avatarContainer = Stack(
         overflow: Overflow.visible,

@@ -72,6 +72,15 @@ class HomePageData {
       time: '17:12',
     ),
     const HomeData(
+        avatar: 'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1902767009,2920248927&fm=27&gp=0.jpg',
+        title: '大神组',
+        titleColor: 0xff586b95,
+        des: '25元现金助力开学季！',
+        isGroup: true,
+        time: '17:12',
+      unreadMessageCount: 3
+    ),
+    const HomeData(
       avatar: 'https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=2089798413,2081992102&fm=27&gp=0.jpg',
       title: 'Lily',
       des: '今天要去运动场锻炼吗？',
