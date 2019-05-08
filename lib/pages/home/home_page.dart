@@ -15,7 +15,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           elevation: 0.2,
-          title: Text(Strings.TitleHome, style: AppStyles.TitleStyle),
+          title: Text(Strings.TitleHome, style: AppStyles.AppBarStyle),
           centerTitle: true,
 
           /// menu 1
@@ -114,7 +114,7 @@ class HomePage extends StatelessWidget {
 
       scrollDirection: Axis.vertical,
       //设置滑动方向 Axis.horizontal 水平  默认 Axis.vertical 垂直
-      padding: EdgeInsets.only(top: 10.0),
+      padding: EdgeInsets.only(top: 10.0,bottom: 20.0),
       //内间距
       reverse: false,
       //是否倒序显示 默认正序 false  倒序true
@@ -137,7 +137,7 @@ class HomePage extends StatelessWidget {
         }else if(index ==1){
           return _DevicesItem();
         } else {
-          return _ContentItem(index - 2,list);
+          return _ContentItem(list[index - 2]);
         }
       },
     );
@@ -297,11 +297,98 @@ class _DevicesItem extends StatelessWidget{
 }
 
 class _ContentItem extends StatelessWidget {
-  int _index;
-  List<HomeData> _list;
-  _ContentItem(this._index,this._list);
+  HomeData _itemData;
+  _ContentItem(this._itemData);
+
   @override
   Widget build(BuildContext context) {
+
+    var _muteTime = <Widget>[
+      Text(_itemData.time,style: AppStyles.DesStyle),
+      SizedBox(height: 10.0)
+    ];
+    
+    if(_itemData.isMute){
+      _muteTime.add(Icon(IconData(
+        0xe755,
+        fontFamily: Constants.IconFontFamily),
+        color: Color(AppColors.HomeMuteIcon),
+          size: AppDimens.HomeMuteIconSize)
+      );
+    }else{
+      _muteTime.add(Icon(IconData(
+          0xe755,
+          fontFamily: Constants.IconFontFamily),
+          color: Colors.transparent,
+          size: AppDimens.HomeMuteIconSize)
+      );
+    }
+
+    Widget avatar;
+    if(_itemData.isAvatarFormNet()){
+      avatar = Image.network(
+        _itemData.avatar,
+        width: AppDimens.AvatarSize,
+        height: AppDimens.AvatarSize,
+        fit: BoxFit.fill,
+      );
+    }else{
+      avatar = Image.asset(
+        _itemData.avatar,
+        width: AppDimens.AvatarSize,
+        height: AppDimens.AvatarSize,
+        fit: BoxFit.fill,
+      );
+    }
+
+    avatar = ClipRRect(
+      borderRadius: BorderRadius.circular(AppDimens.AvatarRadius),
+      child: avatar,
+    );
+
+    Widget avatarContainer;
+    const UN_READ_MSG_CIRCLE_SIZE = 20.0;
+    const UN_READ_MSG_DOT_SIZE = 12.0;
+    if(_itemData.unreadMessageCount > 0){
+      // 未读消息角标
+      Widget unreadMessageCountText;
+      if(_itemData.displayDot){
+        unreadMessageCountText = Container(
+          width: UN_READ_MSG_DOT_SIZE,
+          height: UN_READ_MSG_DOT_SIZE,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(UN_READ_MSG_DOT_SIZE / 2.0),
+            color: Color(AppColors.NotifyDotBg),
+          ),
+        );
+      }else{
+        unreadMessageCountText = Container(
+          width: UN_READ_MSG_CIRCLE_SIZE,
+          height: UN_READ_MSG_CIRCLE_SIZE,
+          alignment: Alignment.center,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(UN_READ_MSG_CIRCLE_SIZE / 2.0),
+            color: Color(AppColors.NotifyDotBg),
+          ),
+          child: Text(_itemData.unreadMessageCount.toString(),
+              style: AppStyles.NotifyDotStyle),
+        );
+      }
+      avatarContainer = Stack(
+        overflow: Overflow.visible,
+        children: <Widget>[
+          avatar,
+          Positioned(
+            right: _itemData.displayDot ? -4.0 : -6.0,
+            top: _itemData.displayDot ? -4.0 : -6.0,
+            child: unreadMessageCountText,
+          )
+        ],
+      );
+    }else{
+      avatarContainer = avatar;
+    }
+
     return Material(
       child: Container(
         height: 80.0,
@@ -311,7 +398,7 @@ class _ContentItem extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
-              Image.network(_list[_index].avatar,width: 60.0,height: 60.0),
+              avatarContainer,
               Container(width: 12.0),
               Expanded(
                 child: Container(
@@ -328,18 +415,15 @@ class _ContentItem extends StatelessWidget {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Text(_list[_index].title, style: AppStyles.TitleStyle),
-                            SizedBox(height: 2.0),
-                            Text(_list[_index].des, style: AppStyles.DesStyle, maxLines: 1)
+                            Text(_itemData.title, style: AppStyles.TitleStyle),
+                            SizedBox(height: 8.0),
+                            Text(_itemData.des, style: AppStyles.DesStyle, maxLines: 1)
                           ],
                         ),
                       ),
                       Container(width: 10.0),
                       Column(
-                        children: <Widget>[
-                          Text(_list[_index].time),
-                          Icon(Icons.access_time,size: 12.0,)
-                        ],
+                        children: _muteTime,
                       ),
                     ],
                   )
