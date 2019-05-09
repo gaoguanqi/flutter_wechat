@@ -285,7 +285,7 @@ class _DevicesItem extends StatelessWidget{
                   Text(Strings.TextDevices)
                 ],
               ),
-              Container(height: 8.0),
+              Container(height: 12.0),
               Divider(
                 height: 0.2
               )
