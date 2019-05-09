@@ -5,6 +5,7 @@ import 'package:flutter_wechat/utils/utils.dart';
 import 'package:flutter_wechat/pages/home/home_data.dart';
 import 'dart:ui';
 import 'package:flutter_wechat/pages/search/search_page.dart';
+import 'package:flutter_wechat/widget/app_bar_widget.dart';
 
 class HomePage extends StatelessWidget {
   @override
@@ -13,12 +14,7 @@ class HomePage extends StatelessWidget {
         .mock()
         .list;
     return Scaffold(
-        appBar: AppBar(
-          elevation: 0.2,
-          title: Text(Strings.TitleHome, style: AppStyles.AppBarStyle),
-          centerTitle: true,
-
-          /// menu 1
+      /// menu 1
 //          actions: <Widget>[
 //            IconButton(
 //              icon: Image.asset('assets/images/ic_home_add.png',
@@ -28,10 +24,7 @@ class HomePage extends StatelessWidget {
 //                _showHomeMenu(context);
 //              },
 //            )
-//          ],
-          ///menu 2
-          actions: _menuActions(context),
-        ),
+        appBar: MyAppBar(titleText: Strings.TitleHome, titleActions: _menuActions(context)),
         body: Container(
           alignment: Alignment.center,
           // child: _homeListView(context,data),

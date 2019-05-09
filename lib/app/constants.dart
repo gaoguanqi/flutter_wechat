@@ -68,8 +68,12 @@ class AppDimens{
 
   static const AvatarSize = 50.0;
   static const AvatarRadius = 4.0;
+
+  static const IndexBarWidth = 24.0;
 }
 
 class Constants{
   static const IconFontFamily = "appIconFont";
+
+
 }
