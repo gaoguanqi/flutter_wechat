@@ -4,12 +4,12 @@ class LoadingWidget{
   static Widget getLoading({Color backgroundColor, Color loadingBgColor}) {
     return Container(
       alignment: AlignmentDirectional.center,
-      decoration: new BoxDecoration(
+      decoration: BoxDecoration(
         color: backgroundColor == null ? Colors.transparent : backgroundColor,
       ),
-      child: new Container(
-        decoration: new BoxDecoration(
-            color: loadingBgColor == null ? Colors.white : loadingBgColor, borderRadius: new BorderRadius.circular(10.0)),
+      child: Container(
+        decoration: BoxDecoration(
+            color: loadingBgColor == null ? Colors.white : loadingBgColor, borderRadius: BorderRadius.circular(10.0)),
         width: 70.0,
         height: 70.0,
         alignment: AlignmentDirectional.center,

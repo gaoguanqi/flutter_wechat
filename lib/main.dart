@@ -34,21 +34,21 @@ class RestartWidget extends StatefulWidget {
   }
 
   @override
-  _RestartWidgetState createState() => new _RestartWidgetState();
+  _RestartWidgetState createState() => _RestartWidgetState();
 }
 
 class _RestartWidgetState extends State<RestartWidget> {
-  Key key = new UniqueKey();
+  Key key = UniqueKey();
 
   void restartApp() {
     this.setState(() {
-      key = new UniqueKey();
+      key = UniqueKey();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return new Container(
+    return Container(
       key: key,
       child: widget.child,
     );
