@@ -54,6 +54,7 @@ class AppStrings{
 
 }
 
+
 class AppDimens{
   /// The height of the toolbar component of the [AppBar].
   static const double kToolbarHeight = 56.0;
