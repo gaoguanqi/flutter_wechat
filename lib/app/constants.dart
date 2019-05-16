@@ -76,5 +76,5 @@ class AppDimens{
 class Constants{
   static const IconFontFamily = "appIconFont";
 
-
+  //https://github.com/gaoguanqi/flutter_wechat/tree/master/screenshots/home1.png
 }
