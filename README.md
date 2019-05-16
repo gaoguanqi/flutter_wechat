@@ -16,4 +16,5 @@ For help getting started with Flutter, view our
 samples, guidance on mobile development, and a full API reference.
 
 # 效果图与示例
-<img src="https://github.com/gaoguanqi/flutter_wechat/tree/master/screenshots/home1.jpg" width="375" alt="首页">
+<img src="https://github.com/gaoguanqi/flutter_wechat/tree/master/screenshots/home1.jpg" alt="首页1">
+<img src="https://github.com/gaoguanqi/flutter_wechat/tree/master/screenshots/home2.jpg" alt="首页2">
