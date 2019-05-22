@@ -21,3 +21,5 @@ samples, guidance on mobile development, and a full API reference.
 ![image](https://github.com/gaoguanqi/flutter_wechat/blob/master/screenshots/home1.jpg?raw=true)
 
 ![image](https://github.com/gaoguanqi/flutter_wechat/blob/master/screenshots/home2.jpg?raw=true)
+
+### 该项目只供学习交流使用，严禁用于商业用途.....
